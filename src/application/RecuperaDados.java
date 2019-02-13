@@ -10,12 +10,16 @@ import java.util.Locale;;
 
 public class RecuperaDados {
 	
+	Scanner sc;
 	
-	Scanner sc = new Scanner(System.in);
+	public RecuperaDados() {
+		Locale.setDefault(Locale.ENGLISH);
+		sc = new Scanner(System.in);
+	}
+		
 	List<Employee> listEmployee = new ArrayList<>();
 	
-	public void registerEmployee() {
-		Locale.setDefault(Locale.US);
+	public void registerEmployee() {		
 		System.out.println("Enter the number of Employee: ");
 		int numberRegister = sc.nextInt();
 		sc.nextLine();
@@ -45,9 +49,9 @@ public class RecuperaDados {
 					System.out.print("Value per hour: ");
 					double valuePerHour = sc.nextDouble();
 					System.out.println("Additional charge: ");
-					String chargeValue = sc.next();
-					chargeValue.replaceAll(".", ",");
-					double addCharge = Double.parseDouble(chargeValue);
+					//String chargeValue = sc.next();
+					//chargeValue.replaceAll(".", ",");
+					double addCharge = sc.nextDouble(); // Double.parseDouble(chargeValue);
 					Employee emp = new OutsourcedEmployee(name, hours, valuePerHour, addCharge);
 					listEmployee.add(emp);
 				}
