@@ -6,13 +6,16 @@ import java.util.Scanner;
 
 import entities.Employee;
 import entities.OutsourcedEmployee;
+import java.util.Locale;;
 
 public class RecuperaDados {
-
+	
+	
 	Scanner sc = new Scanner(System.in);
 	List<Employee> listEmployee = new ArrayList<>();
 	
 	public void registerEmployee() {
+		Locale.setDefault(Locale.US);
 		System.out.println("Enter the number of Employee: ");
 		int numberRegister = sc.nextInt();
 		sc.nextLine();
@@ -27,10 +30,10 @@ public class RecuperaDados {
 					System.out.print("Name: ");
 					String name = sc.nextLine();
 					System.out.print("Hours: ");
-					double hours = sc.nextDouble();
+					int hours = sc.nextInt();
 					System.out.print("Value per hour: ");
 					double valuePerHour = sc.nextDouble();
-					Employee emp = new Employee( name,(int) hours, valuePerHour);
+					Employee emp = new Employee( name, hours, valuePerHour);
 					listEmployee.add(emp);
 					}
 				else if  (typeEmployee == 'y') {
@@ -38,13 +41,15 @@ public class RecuperaDados {
 					System.out.print("Name: ");
 					String name = sc.nextLine();
 					System.out.print("Hours: ");
-					double hours = sc.nextDouble();
+					int hours = sc.nextInt();
 					System.out.print("Value per hour: ");
 					double valuePerHour = sc.nextDouble();
 					System.out.println("Additional charge: ");
-					double addCharge = sc.nextDouble();
-					Employee out = new OutsourcedEmployee(name, (int) hours, valuePerHour, addCharge);
-					listEmployee.add(out);
+					String chargeValue = sc.next();
+					chargeValue.replaceAll(".", ",");
+					double addCharge = Double.parseDouble(chargeValue);
+					Employee emp = new OutsourcedEmployee(name, hours, valuePerHour, addCharge);
+					listEmployee.add(emp);
 				}
 				else {
 					System.out.println("Invalid answer!");
@@ -54,7 +59,7 @@ public class RecuperaDados {
 		System.out.println();
 		System.out.println("PAYMENTS: ");	
 		for (Employee e : listEmployee) {
-			System.out.println(e.getName() + " - $ " + e.payment());
+			System.out.println(e.getName() + " - $ " + String.format("%.2f", e.payment()));
 		}
 		sc.close();
 	}
